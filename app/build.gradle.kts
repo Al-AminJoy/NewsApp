@@ -2,6 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.navigation.serialization)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
+    kotlin("kapt")
 }
 
 android {
@@ -37,6 +41,9 @@ android {
     buildFeatures {
         compose = true
     }
+    configurations.implementation{
+        exclude(group = "com.intellij", module = "annotations")
+    }
 }
 
 dependencies {
@@ -58,4 +65,18 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation(libs.bundles.navigation)
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
+    implementation(libs.bundles.dataStore)
+    implementation(libs.material.icon)
+    implementation(libs.lottie)
+    implementation(libs.lottie.compose)
+    implementation (libs.accompanist.systemuicontroller)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.gson)
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
+
 }
