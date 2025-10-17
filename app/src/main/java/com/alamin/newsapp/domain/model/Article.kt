@@ -2,10 +2,10 @@ package com.alamin.newsapp.domain.model
 
 
 data class Article(
-    val title: String?,
-    val author: String?,
-    val content: String?,
-    val description: String?,
+    val title: String,
+    val author: String,
+    val content: String,
+    val description: String,
     val publishedAt: String?,
     val url: String?,
     val urlToImage: String?

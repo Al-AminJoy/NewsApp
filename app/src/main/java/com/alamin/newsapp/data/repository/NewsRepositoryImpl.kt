@@ -8,6 +8,7 @@ import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.domain.model.NewsRequest
 import com.alamin.newsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -16,7 +17,7 @@ class NewsRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao
 ): NewsRepository {
     override fun getArticles(): Flow<List<Article>> {
-        TODO("Not yet implemented")
+        return articleDao.getArticles().map { articleList -> articleList.map { it.toArticle() } }
     }
 
     override suspend fun refreshArticles(newsRequest: NewsRequest) {

@@ -6,11 +6,11 @@ import com.alamin.newsapp.domain.model.Article
 
 fun ArticleDto.toArticle(): Article {
     return Article(
-        title = title ?: "",
+        title = title ?: "Title Not Found",
         author = author ?: "Author Not Found",
         content = content ?: "Content not Available",
         description = description ?: "Description Not Found",
-        publishedAt = publishedAt ?: "No Title",
+        publishedAt = publishedAt,
         url = url,
         urlToImage = urlToImage,
         )
@@ -22,7 +22,7 @@ fun ArticleDto.toArticleEntity(): ArticleEntity {
         author = author ?: "Author Not Found",
         content = content ?: "Content not Available",
         description = description ?: "Description Not Found",
-        publishedAt = publishedAt ?: "No Title",
+        publishedAt = publishedAt,
         url = url,
         urlToImage = urlToImage,
     )
@@ -31,11 +31,11 @@ fun ArticleDto.toArticleEntity(): ArticleEntity {
 fun Article.toArticleEntity(): ArticleEntity {
     return ArticleEntity(
         id = 0L,
-        title = title ?: "",
-        author = author ?: "Author Not Found",
-        content = content ?: "Content not Available",
-        description = description ?: "Description Not Found",
-        publishedAt = publishedAt ?: "No Title",
+        title = title,
+        author = author,
+        content = content,
+        description = description,
+        publishedAt = publishedAt,
         url = url,
         urlToImage = urlToImage,
         )
