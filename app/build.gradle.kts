@@ -76,7 +76,7 @@ dependencies {
     implementation (libs.accompanist.systemuicontroller)
     implementation(libs.bundles.retrofit)
     implementation(libs.gson)
-    implementation(libs.hilt.core)
+    implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
 
 }

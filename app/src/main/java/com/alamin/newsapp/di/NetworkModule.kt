@@ -1,6 +1,6 @@
 package com.alamin.newsapp.di
 
-import com.alamin.newsapp.data.remote.APIInterface
+import com.alamin.newsapp.data.remote.APIService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -23,7 +23,7 @@ object NetworkModule {
     }
 
     @Provides @Singleton
-    fun provideApi(retrofit: Retrofit): APIInterface {
-        return retrofit.create(APIInterface::class.java)
+    fun provideApi(retrofit: Retrofit): APIService {
+        return retrofit.create(APIService::class.java)
     }
 }

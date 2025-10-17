@@ -25,6 +25,7 @@ accompanistSystemuicontroller = "0.36.0"
 retrofit = "3.0.0"
 gson = "2.13.2"
 hilt_version="2.57.2"
+hilt_navigation="1.1.0"
 
 
 [libraries]
@@ -70,7 +71,9 @@ retrofit-converter = {module = "com.squareup.retrofit2:converter-gson", version.
 gson = {module = "com.google.code.gson:gson", version.ref = "gson"}
 #Hilt
 hilt-core = {module = "com.google.dagger:hilt-android", version.ref = "hilt_version"}
+hilt-navigation = {module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt_navigation"}
 hilt_compiler = {module = "com.google.dagger:hilt-compiler", version.ref = "hilt_version"}
+
 
 
 
@@ -100,6 +103,11 @@ dataStore = [
 retrofit = [
     "retrofit-core",
     "retrofit-converter",
+]
+
+hilt = [
+    "hilt-core",
+    "hilt-navigation",
 ]
 
 
