@@ -417,14 +417,22 @@ val Gold = Color(0xFFD4A017)
 val Sand = Color(0xFFC2B280)
 val CookieBrown = Color(0xFFC7A317)
 
-val Primary = Color(0xFF222831)
+val Primary = Color(0xFF3C8AE9)
 
 val Secondary = Color(0xFF393E46)
 val Tertiary = Color(0xFF948979)
 val TextLight = Color(0xFF3F3E3E)
 val TextDark = Color(0xFFEFEAEA)
 val SecondaryText = Color(0xFF757575)
-val LightBackground = Color(0xFFECEAEA)
-val OnLightBackground = Color(0xFFF8F9FA)
-val DarkBackground = Color(0xFF121212)
-val OnDarkBackground = Color(0xFF35373A)
+val LightBackground = Color(0xFFE9E9E9)
+val LightSurface = Color(0xFFE3E3E3)
+val DarkBackground = Color(0xFF262729)
+val DarkSurface = Color(0xFF2B2C30)
+
+val md_theme_light_onBackground = Color(0xFF1C1B1F)
+val md_theme_light_onSurface = Color(0xFF1C1B1F)
+val md_theme_light_onSurfaceVariant = Color(0xFF49454F) // For less prominent text
+
+val md_theme_dark_onBackground = Color(0xFFE6E1E5)
+val md_theme_dark_onSurface = Color(0xFFE6E1E5)
+val md_theme_dark_onSurfaceVariant = Color(0xFFCAC4CF)

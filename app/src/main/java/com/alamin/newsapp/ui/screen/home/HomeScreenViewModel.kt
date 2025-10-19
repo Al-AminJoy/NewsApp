@@ -26,6 +26,9 @@ class HomeScreenViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
 
+    init {
+       refreshArticle()
+    }
 
     val articles = articleUseCase.invoke()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
@@ -38,7 +41,7 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    fun refreshArticle() {
+    private fun refreshArticle() {
         viewModelScope.launch (IO){
             val newsRequest = NewsRequest("us", "business", "a1f5a0a3f1dc4ca8afe397073b159464")
             refreshArticleUseCase.invoke(newsRequest)

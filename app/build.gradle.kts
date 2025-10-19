@@ -78,5 +78,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.coil.compose)
 
 }

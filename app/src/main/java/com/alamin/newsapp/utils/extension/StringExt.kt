@@ -1,8 +1,10 @@
 package com.alamin.newsapp.utils.extension
 
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlin.text.format
 
 fun String.checkIsAfter(deadline: String): Boolean {
 
@@ -60,4 +62,15 @@ fun String.checkIsBefore(deadline: String): Boolean {
     val targetDate = LocalDateTime.parse(currentDate, formatter)
 
     return targetDate.isBefore(oneDayAfter)
+}
+
+fun String?.formatTime(): String {
+    return try {
+        val instant = java.time.Instant.parse(this)
+        val zonedDateTime =
+            ZonedDateTime.ofInstant(instant, java.time.ZoneOffset.systemDefault())
+        DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm").format(zonedDateTime)
+    } catch (e: Exception) {
+        "Unknown date"
+    }
 }
