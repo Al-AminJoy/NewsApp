@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,17 +37,21 @@ class HomeScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch(IO) {
             articles.collectLatest {  latestArticles ->
-                _uiState.value = _uiState.value.copy(articles = latestArticles)
+                _uiState.update { it.copy(articles = latestArticles) }
             }
         }
     }
 
-    private fun refreshArticle() {
+    fun refreshArticle() {
         viewModelScope.launch (IO){
             val newsRequest = NewsRequest("us", "business", "a1f5a0a3f1dc4ca8afe397073b159464")
             refreshArticleUseCase.invoke(newsRequest)
         }
 
+    }
+
+    fun updateState(uiState: UIState) {
+        _uiState.update { uiState }
     }
 
 }
@@ -55,5 +60,6 @@ data class UIState(
     val isLoading: Boolean = false,
     val message: String? = null,
     val exception: Exception? = null,
+    val isRefreshing: Boolean = false,
     val articles: List<Article> = arrayListOf()
 )

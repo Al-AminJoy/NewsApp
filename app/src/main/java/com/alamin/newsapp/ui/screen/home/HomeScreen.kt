@@ -1,46 +1,35 @@
 package com.alamin.newsapp.ui.screen.home
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,14 +40,14 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alamin.newsapp.R
 import com.alamin.newsapp.domain.model.Article
-import com.alamin.newsapp.ui.theme.Blue
-import com.alamin.newsapp.ui.theme.Red
+import com.alamin.newsapp.ui.screen.component.AnimatedProgressDialog
 import com.alamin.newsapp.utils.AppConstants
 import com.alamin.newsapp.utils.extension.formatTime
 
 @Composable
 fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel(), toDetails: (Article) -> Unit) {
 
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
 
@@ -70,23 +59,55 @@ fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel(), toDetails: (Art
                 modifier = Modifier.padding(horizontal = AppConstants.APP_MARGIN.dp)
             )
             Spacer(modifier = Modifier.height(AppConstants.APP_MARGIN.dp))
-            if (uiState.articles.isNotEmpty()) {
-                LazyColumn {
-                    items(uiState.articles) { article ->
-                        NewsItem(
-                            article = article,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = AppConstants.APP_MARGIN.dp),
-                            toDetails = toDetails
-                        )
-                        Spacer(modifier = Modifier.height(AppConstants.APP_MARGIN.dp))
+
+            PullToRefreshBox(
+                isRefreshing = uiState.isRefreshing,
+                onRefresh = {
+                    viewModel.updateState(uiState.copy(isRefreshing = true))
+                },
+                modifier = Modifier.fillMaxSize()
+            ) {
+                if (uiState.articles.isNotEmpty()) {
+                    LazyColumn {
+                        items(uiState.articles) { article ->
+                            NewsItem(
+                                article = article,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = AppConstants.APP_MARGIN.dp),
+                                toDetails = toDetails
+                            )
+                            Spacer(modifier = Modifier.height(AppConstants.APP_MARGIN.dp))
+                        }
                     }
+
                 }
 
             }
 
+
+
         }
+
+        if (uiState.isLoading) {
+            AnimatedProgressDialog()
+        }
+
+        LaunchedEffect(uiState.isRefreshing) {
+            if (uiState.isRefreshing) {
+                viewModel.refreshArticle()
+                viewModel.updateState( uiState.copy(isRefreshing = false))
+            }
+        }
+
+        LaunchedEffect(uiState.message) {
+            if (uiState.message != null) {
+                Toast.makeText(context, uiState.message, Toast.LENGTH_SHORT).show()
+                viewModel.updateState(uiState.copy(message = null))
+            }
+        }
+
+
     }
 
 }
@@ -131,7 +152,7 @@ fun NewsItem(
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(article.urlToImage)
                             .crossfade(true)
-                            .error(R.drawable.ic_launcher_background)
+                            .error(R.drawable.no_image)
                             .build(),
                         contentDescription = article.title,
                         contentScale = ContentScale.Crop,
@@ -163,7 +184,7 @@ fun NewsItem(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height((AppConstants.APP_MARGIN / 2).dp))
                 Text(
                     text = "Author: ${article.author}",
                     style = MaterialTheme.typography.labelSmall.copy(
@@ -184,7 +205,6 @@ fun NewsItem(
 
             Spacer(modifier = Modifier.height(AppConstants.APP_MARGIN.dp)) // Spacer before button
 
-            // 3. Details Button at the bottom
             Button(
                 onClick = { toDetails(article) },
                 modifier = Modifier

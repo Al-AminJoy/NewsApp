@@ -417,7 +417,7 @@ val Gold = Color(0xFFD4A017)
 val Sand = Color(0xFFC2B280)
 val CookieBrown = Color(0xFFC7A317)
 
-val Primary = Color(0xFF3C8AE9)
+val Primary = Color(0xFF0BA6DF)
 
 val Secondary = Color(0xFF393E46)
 val Tertiary = Color(0xFF948979)

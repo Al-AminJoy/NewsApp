@@ -1,6 +1,7 @@
 package com.alamin.newsapp.di
 
 import com.alamin.newsapp.data.remote.APIService
+import com.alamin.newsapp.utils.AppConstants
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 object NetworkModule {
     @Provides @Singleton
     fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl("https://newsapi.org/")
+        return Retrofit.Builder().baseUrl(AppConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(OkHttpClient.Builder().build())
             .build()

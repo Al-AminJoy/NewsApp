@@ -26,7 +26,7 @@ class NewsRepositoryImpl @Inject constructor(
 
             if (response.isSuccessful){
                 response.body()?.let { newsResponseDto ->
-                    articleDao.insertArticles(newsResponseDto.articles.map { it.toArticleEntity() })
+                    articleDao.deleteAndInsertArticles(newsResponseDto.articles.map { it.toArticleEntity() })
                 }
             }else{
 
