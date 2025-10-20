@@ -8,13 +8,14 @@ import androidx.navigation.toRoute
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.ui.screen.details.DetailsScreen
 import com.alamin.newsapp.ui.screen.home.HomeScreen
+import com.alamin.newsapp.ui.screen.main.MainViewModel
 import kotlinx.serialization.json.Json
 
 @Composable
-fun NavGraph(navController: NavHostController, startDestination: Destination) {
+fun NavGraph(navController: NavHostController,mainViewModel: MainViewModel, startDestination: Destination) {
         NavHost(navController = navController, startDestination = startDestination){
             composable<Destination.Home> {
-                HomeScreen{
+                HomeScreen(mainViewModel = mainViewModel){
                     val article = Json.encodeToString(it)
                     navController.navigate(Destination.Details(article))
                 }
@@ -23,7 +24,7 @@ fun NavGraph(navController: NavHostController, startDestination: Destination) {
             composable<Destination.Details> {
                 val route = it.toRoute<Destination.Details>()
                 val article = Json.decodeFromString<Article>(route.article)
-                DetailsScreen(article)
+                DetailsScreen(article, mainViewModel = mainViewModel)
             }
         }
 }

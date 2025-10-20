@@ -9,4 +9,6 @@ class DetailsScreenViewModel @Inject constructor(
     private val articleUseCase: ArticleUseCase
 ) : ViewModel() {
 
+
+
 }

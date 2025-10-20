@@ -41,14 +41,19 @@ import coil.request.ImageRequest
 import com.alamin.newsapp.R
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.ui.screen.component.AnimatedProgressDialog
+import com.alamin.newsapp.ui.screen.main.MainViewModel
 import com.alamin.newsapp.utils.AppConstants
 import com.alamin.newsapp.utils.extension.formatTime
 
 @Composable
-fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel(), toDetails: (Article) -> Unit) {
+fun HomeScreen(mainViewModel: MainViewModel,viewModel: HomeScreenViewModel = hiltViewModel(), toDetails: (Article) -> Unit) {
 
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        mainViewModel.updateTitle("News Explorer")
+    }
 
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {

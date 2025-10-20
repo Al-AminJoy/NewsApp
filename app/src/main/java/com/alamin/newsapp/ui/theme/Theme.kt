@@ -1,6 +1,5 @@
 package com.alamin.newsapp.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,26 +11,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Primary,
+    primary = primary,
     onPrimary = White,
-    secondary = Secondary,
-    tertiary = Tertiary,
-    background = DarkBackground,
+    secondary = secondary,
+    tertiary = tertiary,
+    background = dark_background,
     onBackground = md_theme_dark_onBackground,
-    surface = DarkSurface,
+    surface = dark_surface,
     onSurface = md_theme_dark_onSurface,
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
 
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Primary,
+    primary = primary,
     onPrimary = White,
-    secondary = Secondary,
-    tertiary = Tertiary,
-    background = LightBackground,
+    secondary = secondary,
+    tertiary = tertiary,
+    background = light_Background,
     onBackground = md_theme_light_onBackground,
-    surface = LightSurface,
+    surface = light_surface,
     onSurface = md_theme_light_onSurface,
     onSurfaceVariant = md_theme_light_onSurfaceVariant,
 
