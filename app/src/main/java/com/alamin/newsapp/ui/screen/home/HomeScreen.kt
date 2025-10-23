@@ -1,6 +1,7 @@
 package com.alamin.newsapp.ui.screen.home
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,12 +11,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -40,13 +43,19 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alamin.newsapp.R
 import com.alamin.newsapp.domain.model.Article
-import com.alamin.newsapp.ui.screen.component.AnimatedProgressDialog
+import com.alamin.newsapp.domain.model.NewsCategory
+import com.alamin.newsapp.ui.common.AnimatedProgressDialog
+import com.alamin.newsapp.ui.common.buildImageRequest
 import com.alamin.newsapp.ui.screen.main.MainViewModel
 import com.alamin.newsapp.utils.AppConstants
 import com.alamin.newsapp.utils.extension.formatTime
 
 @Composable
-fun HomeScreen(mainViewModel: MainViewModel,viewModel: HomeScreenViewModel = hiltViewModel(), toDetails: (Article) -> Unit) {
+fun HomeScreen(
+    mainViewModel: MainViewModel,
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    toDetails: (Article) -> Unit
+) {
 
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -64,6 +73,20 @@ fun HomeScreen(mainViewModel: MainViewModel,viewModel: HomeScreenViewModel = hil
                 modifier = Modifier.padding(horizontal = AppConstants.APP_MARGIN.dp)
             )
             Spacer(modifier = Modifier.height(AppConstants.APP_MARGIN.dp))
+
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(AppConstants.APP_MARGIN.dp),
+                modifier = Modifier.padding(horizontal = AppConstants.APP_MARGIN.dp)
+            ) {
+                items(NewsCategory.entries.toTypedArray()) { category ->
+                    ElevatedButton(shape = MaterialTheme.shapes.medium, onClick = {
+                        viewModel.refreshArticle(category)
+                    }) {
+                        Text(text = category.displayName)
+                    }
+
+                }
+            }
 
             PullToRefreshBox(
                 isRefreshing = uiState.isRefreshing,
@@ -91,7 +114,6 @@ fun HomeScreen(mainViewModel: MainViewModel,viewModel: HomeScreenViewModel = hil
             }
 
 
-
         }
 
         if (uiState.isLoading) {
@@ -101,7 +123,7 @@ fun HomeScreen(mainViewModel: MainViewModel,viewModel: HomeScreenViewModel = hil
         LaunchedEffect(uiState.isRefreshing) {
             if (uiState.isRefreshing) {
                 viewModel.refreshArticle()
-                viewModel.updateState( uiState.copy(isRefreshing = false))
+                viewModel.updateState(uiState.copy(isRefreshing = false))
             }
         }
 
@@ -154,11 +176,7 @@ fun NewsItem(
             ) {
                 if (article.urlToImage != null) {
                     AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(article.urlToImage)
-                            .crossfade(true)
-                            .error(R.drawable.no_image)
-                            .build(),
+                        model = buildImageRequest(article.urlToImage),
                         contentDescription = article.title,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()

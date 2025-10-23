@@ -1,17 +1,18 @@
 package com.alamin.newsapp.utils.extension
 
-import java.util.logging.Logger
+import com.alamin.newsapp.data.remote.model.ApiErrorDto
+import com.alamin.newsapp.utils.Logger
+import retrofit2.Response
 
 
-/*
 private const val TAG = "HttpResponseExt"
-suspend fun Response.getException(): String {
+fun <T> Response<T>.getException(): String {
     return try {
-        val apiError = this.body<ApiError>()
+        val apiError = this.body() as ApiErrorDto
         Logger.log(TAG, "getException: $apiError")
         apiError.message?: "Something went wrong, please try again later"
     } catch (ex: Exception) {
         Logger.log(TAG, "getException: Exception $ex")
         "Something went wrong, please try again later"
     }
-}*/
+}

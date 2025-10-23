@@ -7,4 +7,6 @@ object AppConstants {
 
     const val APP_MARGIN: Int = 8
 
+    const val ENABLE_LOG = true
+
 }

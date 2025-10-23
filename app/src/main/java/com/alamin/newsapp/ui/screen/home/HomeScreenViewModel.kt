@@ -3,9 +3,12 @@ package com.alamin.newsapp.ui.screen.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alamin.newsapp.domain.model.Article
+import com.alamin.newsapp.domain.model.NewsCategory
 import com.alamin.newsapp.domain.model.NewsRequest
 import com.alamin.newsapp.domain.usecase.ArticleUseCase
 import com.alamin.newsapp.domain.usecase.RefreshArticleUseCase
+import com.alamin.newsapp.utils.Result
+import com.alamin.newsapp.utils.extension.getErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +31,7 @@ class HomeScreenViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-       refreshArticle()
+        refreshArticle()
     }
 
     val articles = articleUseCase.invoke()
@@ -36,16 +39,36 @@ class HomeScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(IO) {
-            articles.collectLatest {  latestArticles ->
+            articles.collectLatest { latestArticles ->
                 _uiState.update { it.copy(articles = latestArticles) }
             }
         }
     }
 
-    fun refreshArticle() {
-        viewModelScope.launch (IO){
-            val newsRequest = NewsRequest("us", "business", "a1f5a0a3f1dc4ca8afe397073b159464")
-            refreshArticleUseCase.invoke(newsRequest)
+    fun refreshArticle(category: NewsCategory = NewsCategory.default()) {
+        viewModelScope.launch(IO) {
+            updateState(uiState.value.copy(isLoading = true))
+            val newsRequest =
+                NewsRequest("us", category.apiValue, "a1f5a0a3f1dc4ca8afe397073b159464")
+            val result = refreshArticleUseCase.invoke(newsRequest)
+            updateState(
+                when (result) {
+                    is Result.Error -> {
+                        uiState.value.copy(
+                            isLoading = false,
+                            message = result.exception.getErrorMessage(),
+                            exception = result.exception
+                        )
+                    }
+
+                    is Result.Success<*> -> {
+                        uiState.value.copy(isLoading = false)
+                    }
+                    else -> {
+                        uiState.value
+                    }
+                }
+            )
         }
 
     }

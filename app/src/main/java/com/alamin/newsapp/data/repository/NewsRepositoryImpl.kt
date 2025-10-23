@@ -7,6 +7,10 @@ import com.alamin.newsapp.data.remote.APIService
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.domain.model.NewsRequest
 import com.alamin.newsapp.domain.repository.NewsRepository
+import com.alamin.newsapp.utils.Result
+import com.alamin.newsapp.utils.exception.ServerException
+import com.alamin.newsapp.utils.extension.getException
+import com.alamin.newsapp.utils.extension.getSpecificException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -20,19 +24,26 @@ class NewsRepositoryImpl @Inject constructor(
         return articleDao.getArticles().map { articleList -> articleList.map { it.toArticle() } }
     }
 
-    override suspend fun refreshArticles(newsRequest: NewsRequest) {
-        try {
-            val response= apiService.getNews(newsRequest.country,newsRequest.category,newsRequest.apiKey)
+    override suspend fun refreshArticles(newsRequest: NewsRequest): Result<List<Article>> {
+        return try {
+            val response= apiService.getNews(newsRequest.country,
+                newsRequest.category,
+                newsRequest.apiKey)
 
             if (response.isSuccessful){
-                response.body()?.let { newsResponseDto ->
+                val newsResponseDto = response.body()
+                if (newsResponseDto != null){
                     articleDao.deleteAndInsertArticles(newsResponseDto.articles.map { it.toArticleEntity() })
+                    Result.Success(newsResponseDto.articles.map { it.toArticle() })
+                }else{
+                   Result.Error(Exception("Response Body Is Null"))
                 }
-            }else{
 
+            }else{
+                Result.Error(ServerException(response.getException()))
             }
         }catch (e: Exception){
-
+            Result.Error(Exception(e.getSpecificException()))
         }
     }
 
