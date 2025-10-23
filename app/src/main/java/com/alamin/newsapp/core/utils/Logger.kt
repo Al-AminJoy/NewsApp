@@ -1,4 +1,4 @@
-package com.alamin.newsapp.utils
+package com.alamin.newsapp.core.utils
 
 import android.util.Log
 

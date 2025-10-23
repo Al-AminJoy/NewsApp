@@ -1,6 +1,8 @@
-package com.alamin.newsapp.utils.extension
+package com.alamin.newsapp.core.utils.extension
 
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -66,9 +68,9 @@ fun String.checkIsBefore(deadline: String): Boolean {
 
 fun String?.formatTime(): String {
     return try {
-        val instant = java.time.Instant.parse(this)
+        val instant = Instant.parse(this)
         val zonedDateTime =
-            ZonedDateTime.ofInstant(instant, java.time.ZoneOffset.systemDefault())
+            ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault())
         DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm").format(zonedDateTime)
     } catch (e: Exception) {
         "Unknown date"

@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.screen.details
+package com.alamin.newsapp.presentation.details
 
 import androidx.lifecycle.ViewModel
 import com.alamin.newsapp.domain.usecase.ArticleUseCase

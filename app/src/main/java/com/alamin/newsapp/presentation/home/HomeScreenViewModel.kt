@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.screen.home
+package com.alamin.newsapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,8 +7,8 @@ import com.alamin.newsapp.domain.model.NewsCategory
 import com.alamin.newsapp.domain.model.NewsRequest
 import com.alamin.newsapp.domain.usecase.ArticleUseCase
 import com.alamin.newsapp.domain.usecase.RefreshArticleUseCase
-import com.alamin.newsapp.utils.Result
-import com.alamin.newsapp.utils.extension.getErrorMessage
+import com.alamin.newsapp.core.utils.Result
+import com.alamin.newsapp.core.utils.extension.getErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,15 +30,17 @@ class HomeScreenViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
 
-    init {
-        refreshArticle()
-    }
 
     val articles = articleUseCase.invoke()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     init {
-        viewModelScope.launch(IO) {
+        refreshArticle()
+        observeArticles()
+    }
+
+    fun observeArticles(){
+        viewModelScope.launch (IO){
             articles.collectLatest { latestArticles ->
                 _uiState.update { it.copy(articles = latestArticles) }
             }
@@ -47,14 +49,14 @@ class HomeScreenViewModel @Inject constructor(
 
     fun refreshArticle(category: NewsCategory = NewsCategory.default()) {
         viewModelScope.launch(IO) {
-            updateState(uiState.value.copy(isLoading = true))
+            updateLoading(true)
             val newsRequest =
                 NewsRequest("us", category.apiValue, "a1f5a0a3f1dc4ca8afe397073b159464")
-            val result = refreshArticleUseCase.invoke(newsRequest)
-            updateState(
-                when (result) {
+
+            _uiState.update { state ->
+                when (val result = refreshArticleUseCase(newsRequest)) {
                     is Result.Error -> {
-                        uiState.value.copy(
+                        state.copy(
                             isLoading = false,
                             message = result.exception.getErrorMessage(),
                             exception = result.exception
@@ -62,13 +64,12 @@ class HomeScreenViewModel @Inject constructor(
                     }
 
                     is Result.Success<*> -> {
-                        uiState.value.copy(isLoading = false)
-                    }
-                    else -> {
-                        uiState.value
+                        state.copy(isLoading = false)
                     }
                 }
-            )
+            }
+
+
         }
 
     }
@@ -76,6 +77,11 @@ class HomeScreenViewModel @Inject constructor(
     fun updateState(uiState: UIState) {
         _uiState.update { uiState }
     }
+
+    fun updateLoading(isLoading: Boolean) {
+        _uiState.update { it.copy(isLoading = isLoading) }
+    }
+
 
 }
 

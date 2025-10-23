@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.common
+package com.alamin.newsapp.presentation.components
 
 import android.content.Context
 import androidx.compose.runtime.Composable

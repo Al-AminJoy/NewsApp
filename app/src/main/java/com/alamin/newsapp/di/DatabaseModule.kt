@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.alamin.newsapp.data.local.AppDatabase
 import com.alamin.newsapp.data.local.dao.ArticleDao
-import com.alamin.newsapp.utils.AppConstants
+import com.alamin.newsapp.core.utils.AppConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

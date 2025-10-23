@@ -1,8 +1,8 @@
-package com.alamin.newsapp.utils.extension
+package com.alamin.newsapp.core.utils.extension
 
 import android.util.Log
-import com.alamin.newsapp.utils.exception.CustomException
-import com.alamin.newsapp.utils.exception.NetworkException
+import com.alamin.newsapp.core.utils.exception.CustomException
+import com.alamin.newsapp.core.utils.exception.NetworkException
 import java.net.ConnectException
 import java.net.UnknownHostException
 import java.nio.channels.UnresolvedAddressException

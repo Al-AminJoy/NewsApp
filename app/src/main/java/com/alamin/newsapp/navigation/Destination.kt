@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.navigation
+package com.alamin.newsapp.navigation
 
 import kotlinx.serialization.Serializable
 

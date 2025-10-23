@@ -1,4 +1,4 @@
-package com.alamin.newsapp.utils
+package com.alamin.newsapp.core.utils
 
 object AppConstants {
     const val BASE_URL = "https://newsapi.org/"

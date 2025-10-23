@@ -1,7 +1,7 @@
 package com.alamin.newsapp.di
 
 import com.alamin.newsapp.data.remote.APIService
-import com.alamin.newsapp.utils.AppConstants
+import com.alamin.newsapp.core.utils.AppConstants
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

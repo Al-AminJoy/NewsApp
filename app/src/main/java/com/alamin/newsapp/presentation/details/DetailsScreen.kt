@@ -1,6 +1,5 @@
-package com.alamin.newsapp.ui.screen.details
+package com.alamin.newsapp.presentation.details
 
-import android.widget.ImageView
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,11 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.alamin.newsapp.domain.model.Article
-import com.alamin.newsapp.ui.common.buildImageRequest
-import com.alamin.newsapp.ui.navigation.Destination
-import com.alamin.newsapp.ui.screen.main.MainViewModel
-import com.alamin.newsapp.utils.AppConstants
-import com.alamin.newsapp.utils.extension.formatTime
+import com.alamin.newsapp.presentation.components.buildImageRequest
+import com.alamin.newsapp.presentation.main.MainViewModel
+import com.alamin.newsapp.core.utils.AppConstants
+import com.alamin.newsapp.core.utils.extension.formatTime
 
 @Composable
 fun DetailsScreen(

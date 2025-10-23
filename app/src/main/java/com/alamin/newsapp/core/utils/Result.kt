@@ -1,4 +1,4 @@
-package com.alamin.newsapp.utils
+package com.alamin.newsapp.core.utils
 
 sealed class Result< out T> {
     data class Success<out T>(val data: T) : Result<T>()

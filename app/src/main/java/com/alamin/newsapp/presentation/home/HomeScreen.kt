@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.screen.home
+package com.alamin.newsapp.presentation.home
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -40,15 +40,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.alamin.newsapp.R
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.domain.model.NewsCategory
-import com.alamin.newsapp.ui.common.AnimatedProgressDialog
-import com.alamin.newsapp.ui.common.buildImageRequest
-import com.alamin.newsapp.ui.screen.main.MainViewModel
-import com.alamin.newsapp.utils.AppConstants
-import com.alamin.newsapp.utils.extension.formatTime
+import com.alamin.newsapp.presentation.components.AnimatedProgressDialog
+import com.alamin.newsapp.presentation.components.buildImageRequest
+import com.alamin.newsapp.presentation.main.MainViewModel
+import com.alamin.newsapp.core.utils.AppConstants
+import com.alamin.newsapp.core.utils.extension.formatTime
 
 @Composable
 fun HomeScreen(
@@ -142,8 +140,8 @@ fun HomeScreen(
 val articleModel = Article(
     title = "New Breakthrough in AI Ethics: Researchers Develop Explainable Algorithms",
     author = "Dr. Ava Sharma",
-    content = "A team of researchers at the Global Institute of Technology has announced a significant breakthrough in the field of AI ethics. They have successfully developed a novel framework that allows artificial intelligence algorithms to explain their decision-making processes in human-understandable terms. This development is crucial for building trust in AI systems used in critical sectors like healthcare and finance. The framework, dubbed 'ClarityAI,' uses a combination of natural language processing and causal inference to generate concise and relevant explanations for complex AI outputs. Initial tests show a 90% human comprehension rate of the explanations...",
-    description = "Researchers at GIT unveil 'ClarityAI,' a new framework for explainable AI, enhancing transparency and trust in critical applications.",
+    content = "A team of researchers at the Global Institute oveloped a novel framework",
+    description = "Researchers at GI.",
     publishedAt = "2023-10-27T14:30:00Z",
     url = "https://www.example.com/ai-ethics-breakthrough",
     urlToImage = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/OSQUX4TIQRG3JNL65Y6W6RFWHY_size-normalized.jpg&w=1440"

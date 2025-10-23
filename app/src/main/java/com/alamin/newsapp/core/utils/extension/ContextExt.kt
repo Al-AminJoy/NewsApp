@@ -1,4 +1,4 @@
-package com.alamin.newsapp.utils.extension
+package com.alamin.newsapp.core.utils.extension
 
 import android.app.Activity
 import android.content.Context

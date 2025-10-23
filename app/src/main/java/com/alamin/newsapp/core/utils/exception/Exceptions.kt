@@ -1,4 +1,4 @@
-package com.alamin.newsapp.utils.exception
+package com.alamin.newsapp.core.utils.exception
 
 class ServerException(override val message:String):Exception(message)
 class InvalidUserException(override val message:String = "User Id Or Password Incorrect"):Exception(message)

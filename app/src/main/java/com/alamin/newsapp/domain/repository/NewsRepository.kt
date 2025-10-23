@@ -2,7 +2,7 @@ package com.alamin.newsapp.domain.repository
 
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.domain.model.NewsRequest
-import com.alamin.newsapp.utils.Result
+import com.alamin.newsapp.core.utils.Result
 import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {

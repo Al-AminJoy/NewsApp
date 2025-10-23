@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.navigation
+package com.alamin.newsapp.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.alamin.newsapp.domain.model.Article
-import com.alamin.newsapp.ui.screen.details.DetailsScreen
-import com.alamin.newsapp.ui.screen.home.HomeScreen
-import com.alamin.newsapp.ui.screen.main.MainViewModel
+import com.alamin.newsapp.presentation.details.DetailsScreen
+import com.alamin.newsapp.presentation.home.HomeScreen
+import com.alamin.newsapp.presentation.main.MainViewModel
 import kotlinx.serialization.json.Json
 
 @Composable

@@ -1,4 +1,4 @@
-package com.alamin.newsapp.ui.common
+package com.alamin.newsapp.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
