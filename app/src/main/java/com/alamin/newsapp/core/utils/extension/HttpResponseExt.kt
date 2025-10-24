@@ -1,7 +1,7 @@
 package com.alamin.newsapp.core.utils.extension
 
-import com.alamin.newsapp.data.remote.model.ApiErrorDto
 import com.alamin.newsapp.core.utils.Logger
+import com.alamin.newsapp.data.remote.dto.ApiErrorDto
 import retrofit2.Response
 
 

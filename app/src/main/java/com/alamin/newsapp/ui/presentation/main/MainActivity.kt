@@ -1,4 +1,4 @@
-package com.alamin.newsapp.presentation.main
+package com.alamin.newsapp.ui.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,8 +30,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.alamin.newsapp.navigation.Destination
-import com.alamin.newsapp.navigation.NavGraph
+import com.alamin.newsapp.ui.navigation.Destination
+import com.alamin.newsapp.ui.navigation.NavGraph
 import com.alamin.newsapp.ui.theme.NewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 

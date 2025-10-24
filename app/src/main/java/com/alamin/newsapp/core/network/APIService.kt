@@ -1,6 +1,6 @@
-package com.alamin.newsapp.data.remote
+package com.alamin.newsapp.core.network
 
-import com.alamin.newsapp.data.remote.model.NewsResponseDto
+import com.alamin.newsapp.data.remote.dto.NewsResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

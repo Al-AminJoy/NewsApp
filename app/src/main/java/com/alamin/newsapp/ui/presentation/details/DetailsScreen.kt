@@ -1,4 +1,4 @@
-package com.alamin.newsapp.presentation.details
+package com.alamin.newsapp.ui.presentation.details
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.alamin.newsapp.domain.model.Article
-import com.alamin.newsapp.presentation.components.buildImageRequest
-import com.alamin.newsapp.presentation.main.MainViewModel
+import com.alamin.newsapp.ui.presentation.components.buildImageRequest
+import com.alamin.newsapp.ui.presentation.main.MainViewModel
 import com.alamin.newsapp.core.utils.AppConstants
 import com.alamin.newsapp.core.utils.extension.formatTime
 

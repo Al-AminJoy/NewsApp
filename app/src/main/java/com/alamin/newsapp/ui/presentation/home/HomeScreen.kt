@@ -1,4 +1,4 @@
-package com.alamin.newsapp.presentation.home
+package com.alamin.newsapp.ui.presentation.home
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -42,9 +42,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.domain.model.NewsCategory
-import com.alamin.newsapp.presentation.components.AnimatedProgressDialog
-import com.alamin.newsapp.presentation.components.buildImageRequest
-import com.alamin.newsapp.presentation.main.MainViewModel
+import com.alamin.newsapp.ui.presentation.components.AnimatedProgressDialog
+import com.alamin.newsapp.ui.presentation.components.buildImageRequest
+import com.alamin.newsapp.ui.presentation.main.MainViewModel
 import com.alamin.newsapp.core.utils.AppConstants
 import com.alamin.newsapp.core.utils.extension.formatTime
 

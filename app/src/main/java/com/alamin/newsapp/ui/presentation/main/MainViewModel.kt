@@ -1,4 +1,4 @@
-package com.alamin.newsapp.presentation.main
+package com.alamin.newsapp.ui.presentation.main
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

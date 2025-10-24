@@ -1,4 +1,4 @@
-package com.alamin.newsapp.presentation.home
+package com.alamin.newsapp.ui.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,7 +7,7 @@ import com.alamin.newsapp.domain.model.NewsCategory
 import com.alamin.newsapp.domain.model.NewsRequest
 import com.alamin.newsapp.domain.usecase.ArticleUseCase
 import com.alamin.newsapp.domain.usecase.RefreshArticleUseCase
-import com.alamin.newsapp.core.utils.Result
+import com.alamin.newsapp.core.network.APIResult
 import com.alamin.newsapp.core.utils.extension.getErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -55,7 +55,7 @@ class HomeScreenViewModel @Inject constructor(
 
             _uiState.update { state ->
                 when (val result = refreshArticleUseCase(newsRequest)) {
-                    is Result.Error -> {
+                    is APIResult.Error -> {
                         state.copy(
                             isLoading = false,
                             message = result.exception.getErrorMessage(),
@@ -63,7 +63,7 @@ class HomeScreenViewModel @Inject constructor(
                         )
                     }
 
-                    is Result.Success<*> -> {
+                    is APIResult.Success<*> -> {
                         state.copy(isLoading = false)
                     }
                 }

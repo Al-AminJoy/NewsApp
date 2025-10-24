@@ -1,4 +1,4 @@
-package com.alamin.newsapp.data.remote.model
+package com.alamin.newsapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 

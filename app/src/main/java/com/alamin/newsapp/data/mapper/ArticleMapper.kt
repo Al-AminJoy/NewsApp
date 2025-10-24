@@ -1,7 +1,7 @@
 package com.alamin.newsapp.data.mapper
 
 import com.alamin.newsapp.data.local.entity.ArticleEntity
-import com.alamin.newsapp.data.remote.model.ArticleDto
+import com.alamin.newsapp.data.remote.dto.ArticleDto
 import com.alamin.newsapp.domain.model.Article
 
 fun ArticleDto.toArticle(): Article {

@@ -1,4 +1,4 @@
-package com.alamin.newsapp.di
+package com.alamin.newsapp.data.di
 
 import android.content.Context
 import androidx.room.Room

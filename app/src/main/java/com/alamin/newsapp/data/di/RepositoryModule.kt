@@ -1,4 +1,4 @@
-package com.alamin.newsapp.di
+package com.alamin.newsapp.data.di
 
 import com.alamin.newsapp.data.repository.NewsRepositoryImpl
 import com.alamin.newsapp.domain.repository.NewsRepository
