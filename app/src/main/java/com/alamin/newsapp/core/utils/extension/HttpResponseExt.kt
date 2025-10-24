@@ -1,25 +1,43 @@
 package com.alamin.newsapp.core.utils.extension
 
 import com.alamin.newsapp.core.utils.Logger
+import com.alamin.newsapp.core.utils.AppException
 import com.alamin.newsapp.data.remote.dto.ApiErrorDto
+import com.google.gson.Gson
 import retrofit2.Response
 
-
 private const val TAG = "HttpResponseExt"
-fun <T> Response<T>.getException(): String {
+fun <T> Response<T>.getException(): AppException {
     return try {
 
-        if (this.body() != null){
-            val apiError = this.body() as ApiErrorDto
-            Logger.log(TAG, "getException: $apiError")
-            apiError.message?: "Something went wrong, please try again later"
-        }else{
-            "Response body is null"
-        }
+        if (this.body() == null) {
+            AppException.OthersException("Response body is null")
+        } else {
+            if (this.isSuccessful && this.body() != null && this.body() is Boolean) {
+                AppException.OthersException("Something went wrong, please try again later")
+            } else {
 
+                when (this.code()) {
+                    401 -> AppException.AuthException("Authentication Failed")
+                    404 -> AppException.ServerException("Server Not Found")
+                    else -> {
+                        val apiErrorBody = this.errorBody()?.toString()
+                        try {
+                            val apiError = Gson().fromJson(apiErrorBody, ApiErrorDto::class.java)
+                            AppException.OthersException(apiError.message ?: "Something went wrong, please try again later")
+
+                        } catch (e: Exception) {
+                            AppException.OthersException("Unexpected Error")
+                        }
+                    }
+                }
+
+
+            }
+        }
 
     } catch (ex: Exception) {
         Logger.log(TAG, "getException: Exception $ex")
-        "Something went wrong, please try again later"
+        AppException.OthersException("Unexpected Error")
     }
 }

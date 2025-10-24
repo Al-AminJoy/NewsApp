@@ -89,7 +89,7 @@ fun DetailsScreen(
 
             Spacer(modifier = Modifier.height(AppConstants.APP_MARGIN.dp))
 
-            Text(article.content.substringBefore("[+").trim(), style = MaterialTheme.typography.labelMedium,modifier = Modifier.fillMaxWidth().padding(horizontal = AppConstants.APP_MARGIN.dp))
+            Text(article.content, style = MaterialTheme.typography.labelMedium,modifier = Modifier.fillMaxWidth().padding(horizontal = AppConstants.APP_MARGIN.dp))
 
         }
     }

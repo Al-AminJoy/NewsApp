@@ -2,13 +2,13 @@ package com.alamin.newsapp.ui.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alamin.newsapp.core.utils.Result
+import com.alamin.newsapp.core.utils.extension.getMessage
 import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.domain.model.NewsCategory
 import com.alamin.newsapp.domain.model.NewsRequest
 import com.alamin.newsapp.domain.usecase.ArticleUseCase
 import com.alamin.newsapp.domain.usecase.RefreshArticleUseCase
-import com.alamin.newsapp.core.network.APIResult
-import com.alamin.newsapp.core.utils.extension.getErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,15 +55,15 @@ class HomeScreenViewModel @Inject constructor(
 
             _uiState.update { state ->
                 when (val result = refreshArticleUseCase(newsRequest)) {
-                    is APIResult.Error -> {
+                    is Result.Error -> {
+                     val message =  result.exception.getMessage()
                         state.copy(
                             isLoading = false,
-                            message = result.exception.getErrorMessage(),
-                            exception = result.exception
+                            message = message
                         )
                     }
 
-                    is APIResult.Success<*> -> {
+                    is Result.Success<*> -> {
                         state.copy(isLoading = false)
                     }
                 }
@@ -82,13 +82,11 @@ class HomeScreenViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = isLoading) }
     }
 
-
 }
 
 data class UIState(
     val isLoading: Boolean = false,
     val message: String? = null,
-    val exception: Exception? = null,
     val isRefreshing: Boolean = false,
-    val articles: List<Article> = arrayListOf()
+    val articles: List<Article> = emptyList()
 )
