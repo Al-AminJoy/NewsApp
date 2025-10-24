@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,7 +9,13 @@ plugins {
     alias(libs.plugins.ksp)
     kotlin("kapt")
 }
-
+val localProps = Properties()
+val localPropertiesFile = File(rootProject.rootDir,"local.properties")
+if (localPropertiesFile.exists() && localPropertiesFile.isFile) {
+    localPropertiesFile.inputStream().use {
+        localProps.load(it)
+    }
+}
 android {
     namespace = "com.alamin.newsapp"
     compileSdk = 36
@@ -23,12 +31,23 @@ android {
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
+
+        getByName("release") {
+
+            buildConfigField("String", "API_KEY", localProps.getProperty("API_KEY"))
+            buildConfigField("String", "BASE_URL", localProps.getProperty("BASE_URL"))
+
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        getByName("debug") {
+            buildConfigField("String", "API_KEY", localProps.getProperty("API_KEY"))
+            buildConfigField("String", "BASE_URL", localProps.getProperty("BASE_URL"))
         }
     }
     compileOptions {
@@ -40,6 +59,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     configurations.implementation{
         exclude(group = "com.intellij", module = "annotations")

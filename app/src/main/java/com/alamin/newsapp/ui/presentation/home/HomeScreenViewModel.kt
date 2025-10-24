@@ -2,6 +2,7 @@ package com.alamin.newsapp.ui.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alamin.newsapp.core.network.ServerConstants
 import com.alamin.newsapp.core.utils.Result
 import com.alamin.newsapp.core.utils.extension.getMessage
 import com.alamin.newsapp.domain.model.Article
@@ -51,7 +52,7 @@ class HomeScreenViewModel @Inject constructor(
         viewModelScope.launch(IO) {
             updateLoading(true)
             val newsRequest =
-                NewsRequest("us", category.apiValue, "a1f5a0a3f1dc4ca8afe397073b159464")
+                NewsRequest("us", category.apiValue, ServerConstants.API_KEY )
 
             _uiState.update { state ->
                 when (val result = refreshArticleUseCase(newsRequest)) {

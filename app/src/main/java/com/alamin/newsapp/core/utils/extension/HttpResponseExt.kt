@@ -18,8 +18,8 @@ fun <T> Response<T>.getException(): AppException {
             } else {
 
                 when (this.code()) {
-                    401 -> AppException.AuthException("Authentication Failed")
-                    404 -> AppException.ServerException("Server Not Found")
+                    401 -> AppException.AuthException()
+                    404 -> AppException.ServerException("Resource Not Found")
                     else -> {
                         val apiErrorBody = this.errorBody()?.toString()
                         try {
