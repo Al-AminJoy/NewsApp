@@ -9,11 +9,23 @@ import com.alamin.newsapp.domain.model.Article
 import com.alamin.newsapp.ui.presentation.details.DetailsScreen
 import com.alamin.newsapp.ui.presentation.home.HomeScreen
 import com.alamin.newsapp.ui.presentation.main.MainViewModel
+import com.alamin.newsapp.ui.presentation.splash.SplashScreen
 import kotlinx.serialization.json.Json
 
 @Composable
 fun NavGraph(navController: NavHostController,mainViewModel: MainViewModel, startDestination: Destination) {
         NavHost(navController = navController, startDestination = startDestination){
+            composable<Destination.Splash> {
+                SplashScreen(){
+
+                    navController.navigate(Destination.Home){
+                        popUpTo(Destination.Splash){
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+
             composable<Destination.Home> {
                 HomeScreen(mainViewModel = mainViewModel){
                     val article = Json.encodeToString(it)

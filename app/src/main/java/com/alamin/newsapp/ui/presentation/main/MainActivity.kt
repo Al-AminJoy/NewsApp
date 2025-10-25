@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -39,6 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -48,14 +50,7 @@ class MainActivity : ComponentActivity() {
             val viewModel = hiltViewModel<MainViewModel>()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-            IconButton(onClick = {}) {
-                Icon(
-                    Icons.Default.ArrowBackIosNew,
-                    contentDescription = "back",
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            NewsAppTheme(darkTheme = false) {
+            NewsAppTheme{
                 Scaffold(topBar = {
                     TopAppBar(
                         title = {
@@ -98,11 +93,13 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+
         }
+
     }
 
     @Composable
     fun App(navController: NavHostController, viewModel: MainViewModel) {
-        NavGraph(navController = navController,viewModel ,startDestination = Destination.Home)
+        NavGraph(navController = navController,viewModel ,startDestination = Destination.Splash)
     }
 }

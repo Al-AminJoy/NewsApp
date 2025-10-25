@@ -99,5 +99,6 @@ dependencies {
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.core.splashscreen)
 
 }
