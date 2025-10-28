@@ -32,5 +32,5 @@ class MainViewModel @Inject constructor(): ViewModel() {
 
 data class UiState(
     val isLoading: Boolean = false,
-    val title:String = "Home",
+    val title:String = "",
 )

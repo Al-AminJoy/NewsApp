@@ -66,7 +66,7 @@ fun HomeScreen(
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column {
             Text(
-                text = "Welcome Joy ! Here is Your Breaking News",
+                text = "Welcome ! Here is Your Breaking News",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                 modifier = Modifier.padding(horizontal = AppConstants.APP_MARGIN.dp)
             )

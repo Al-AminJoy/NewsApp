@@ -74,6 +74,9 @@ class MainActivity : ComponentActivity() {
                             if (!(currentRoute ?: "").contains(
                                     Destination.Home.toString(),
                                     ignoreCase = true
+                                ) && !(currentRoute ?: "").contains(
+                                    Destination.Splash.toString(),
+                                    ignoreCase = true
                                 )
                             ) {
                                 IconButton(onClick = {

@@ -16,8 +16,7 @@ import kotlinx.serialization.json.Json
 fun NavGraph(navController: NavHostController,mainViewModel: MainViewModel, startDestination: Destination) {
         NavHost(navController = navController, startDestination = startDestination){
             composable<Destination.Splash> {
-                SplashScreen(){
-
+                SplashScreen {
                     navController.navigate(Destination.Home){
                         popUpTo(Destination.Splash){
                             inclusive = true
