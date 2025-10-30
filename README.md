@@ -57,7 +57,7 @@ A **showcase Android app** built with **modern tools and best practices** to hig
 
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/Al-AminJoy/NewsApp.git
+   git clone https://github.com/Al-AminJoy/NewsExplorer.git
 1. **Open in Android Studio**  
 2. **Build & Run** on an emulator or physical device  
 
