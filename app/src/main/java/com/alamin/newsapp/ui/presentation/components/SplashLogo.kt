@@ -26,8 +26,6 @@ fun SplashLogo() {
     LaunchedEffect(Unit) {
         visible = true
         delay(1500)
-        visible = false
-        delay(1500)
     }
 
     AnimatedVisibility(

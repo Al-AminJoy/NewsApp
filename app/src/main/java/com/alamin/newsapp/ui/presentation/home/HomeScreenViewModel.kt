@@ -12,6 +12,7 @@ import com.alamin.newsapp.domain.usecase.ArticleUseCase
 import com.alamin.newsapp.domain.usecase.RefreshArticleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
